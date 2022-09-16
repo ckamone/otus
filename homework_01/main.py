@@ -11,7 +11,7 @@ def power_numbers(*args):
     >>> power_numbers(1, 2, 5, 7)
     <<< [1, 4, 25, 49]
     """
-    return list(map(lambda x: x ** 2, [i for i in args]))
+    return list(map(lambda x: x ** 2, args))
 
 
 # filter types
@@ -24,7 +24,7 @@ def is_prime(num):
     for i in range(2, (num // 2) + 1):
         if num % i == 0:
             return False
-    return True if num >= 2 else False
+    return num >= 2
 
 
 def filter_numbers(seq, method):
@@ -38,9 +38,9 @@ def filter_numbers(seq, method):
     >>> filter_numbers([2, 3, 4, 5], EVEN)
     <<< [2, 4]
     """
-    if method == "odd":
+    if method == ODD:
         return list(filter(lambda x: x % 2 != 0, seq))
-    elif method == "even":
+    elif method == EVEN:
         return list(filter(lambda x: x % 2 == 0, seq))
-    elif method == 'prime':
+    elif method == PRIME:
         return list(filter(is_prime, seq))
