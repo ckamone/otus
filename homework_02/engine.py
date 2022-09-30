@@ -5,6 +5,6 @@ from dataclasses import dataclass
 
 
 @dataclass
-class Vehicle:
+class Engine:
     volume: int
     pistons: int  # цилиндры

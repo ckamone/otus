@@ -1,8 +1,9 @@
 """
 создайте класс `Plane`, наследник `Vehicle`
 """
+from base import Vehicle
 from exceptions import CargoOverload
-from engine import Vehicle
+
 
 class Plane(Vehicle):
     cargo: int
@@ -15,7 +16,8 @@ class Plane(Vehicle):
         if kg + self.cargo <= self.max_cargo:
             self.cargo += kg
         else:
-            raise CargoOverload(f'Невозможно загрузить вес {kg}. макс = {self.max_cargo}; текущая загрузка= {self.cargo}')
+            raise CargoOverload(
+                f'Невозможно загрузить вес {kg}. макс = {self.max_cargo}; текущая загрузка= {self.cargo}')
 
     def remove_all_cargo(self):
         temp = self.cargo
