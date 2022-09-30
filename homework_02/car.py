@@ -9,8 +9,8 @@ class Car(Vehicle):
 
     engine = None
 
-    def set_engine(self, volume, pistons):
-        self.engine = Engine(volume=volume, pistons=pistons)
+    def set_engine(self, eng):
+        self.engine = eng
 
     def __str__(self):
         try:
