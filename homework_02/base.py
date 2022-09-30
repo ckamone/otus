@@ -23,9 +23,9 @@ class Vehicle(ABC):
 
     def move(self, km: int):
         # self.start()
-        if km / self.fuel_consumption <= self.fuel:
-            self.fuel -= km / self.fuel_consumption
+        if km * self.fuel_consumption <= self.fuel:
+            self.fuel -= km * self.fuel_consumption
             return 'SUCCESS'
         else:
             raise NotEnoughFuel(f"Недостаточно топлива. Для дистанции {km}км с расходом {self.fuel_consumption}л/100км" \
-                                f" не хватит того, что в баке (требуется={km / self.fuel_consumption}л, в баке={self.fuel}л)")
+                                f" не хватит того, что в баке (требуется={km * self.fuel_consumption}л, в баке={self.fuel}л)")
