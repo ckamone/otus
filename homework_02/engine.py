@@ -6,5 +6,5 @@ from dataclasses import dataclass
 
 @dataclass
 class Engine:
-    volume: int
-    pistons: int  # цилиндры
+    volume: float = 1.6
+    pistons: int = 4 # цилиндры

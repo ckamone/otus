@@ -6,10 +6,10 @@ from homework_02.exceptions import CargoOverload
 
 
 class Plane(Vehicle):
-    cargo: int
-    max_cargo: int
 
-    def __init__(self, max_cargo):
+    def __init__(self, cargo=0, max_cargo=1000):
+        super().__init__()
+        self.cargo = cargo
         self.max_cargo = max_cargo
 
     def load_cargo(self, kg):
@@ -23,3 +23,7 @@ class Plane(Vehicle):
         temp = self.cargo
         self.cargo = 0
         return temp
+
+    def __str__(self):
+        return f'{Plane.__name__}: weight={self.weight}, fuel={self.fuel},' \
+               f'consumption={self.fuel_consumption}, started={str(self.started)}'

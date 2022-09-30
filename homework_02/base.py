@@ -4,12 +4,8 @@ from homework_02.exceptions import LowFuelError, NotEnoughFuel
 
 
 class Vehicle(ABC):
-    weigth: int = 500
-    started: bool = False
-    fuel: int = 100
-    fuel_consumption: int = 10
 
-    def __init__(self, weight, started, fuel, fuel_consumption):
+    def __init__(self, weight=500, started=False, fuel=100, fuel_consumption=10):
         self.weight = weight
         self.started = started
         self.fuel = fuel
@@ -23,8 +19,12 @@ class Vehicle(ABC):
                 self.started = True
 
     def move(self, km: int):
+        self.start()
         if km / self.fuel_consumption <= self.fuel:
             self.fuel -= km / self.fuel_consumption
+            return 'SUCCESS'
         else:
-            raise NotEnoughFuel(f"Недостаточно топлива. Для дистанции {km} с расходом {self.fuel_consumption}"
-                                f"не хватит того, что в баке ({self.fuel})")
+            raise NotEnoughFuel(f"Недостаточно топлива. Для дистанции {km}км с расходом {self.fuel_consumption}л/100км" \
+                                f" не хватит того, что в баке (требуется={km / self.fuel_consumption}л, в баке={self.fuel}л)")
+
+
