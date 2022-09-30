@@ -4,19 +4,24 @@ from homework_02.exceptions import LowFuelError, NotEnoughFuel
 
 
 class Vehicle(ABC):
+    # атрибуты со значениями по умолчанию
+    weight = 500
+    fuel = 100
+    fuel_consumption = 10
+    started = False  #
 
-    def __init__(self, weight=500, started=False, fuel=100, fuel_consumption=10):
+    def __init__(self, weight=500, fuel=100, fuel_consumption=10):
         self.weight = weight
-        self.started = started
         self.fuel = fuel
         self.fuel_consumption = fuel_consumption
 
+
     def start(self):
-        if not self.started:
-            if self.fuel == 0:
-                raise LowFuelError(f"Топливо на нуле: {self.fuel}")
-            else:
-                self.started = True
+        if self.fuel > 0:
+            self.started = True
+        else:
+            raise LowFuelError(f"Топливо на нуле: {self.fuel}")
+
 
     def move(self, km: int):
         self.start()
