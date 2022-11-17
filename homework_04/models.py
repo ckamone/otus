@@ -9,8 +9,7 @@
 """
 
 import os
-import asyncio
-from sqlalchemy import Column, Integer, String, ForeignKey, Text
+from sqlalchemy import Column, Integer, String, ForeignKey, Text, create_engine
 from sqlalchemy.ext.asyncio import (
     create_async_engine,
     AsyncEngine,
@@ -25,8 +24,12 @@ from sqlalchemy.orm import (
 )
 
 
-PG_CONN_URI = os.environ.get("SQLALCHEMY_PG_CONN_URI") or "postgresql+asyncpg://username:passwd!@localhost/postgres"
-print(PG_CONN_URI)
+PG_CONN_URI = os.environ.get("SQLALCHEMY_PG_CONN_URI") or "postgresql+pg8000://username:passwd!@localhost/postgres"
+
+
+
+
+
 
 
 class Base:
@@ -37,28 +40,34 @@ class Base:
     def __repr__(self):
         return str(self)
 
+engine = create_engine(url=PG_CONN_URI, echo=True)
+Base = declarative_base(bind=engine, cls=Base)
 
-async_engine: AsyncEngine = create_async_engine(
-    url=PG_CONN_URI,
-    echo=True,
-)
-Base = declarative_base(bind=async_engine, cls=Base)
+session_factory = sessionmaker(bind=engine)
+Session = scoped_session(session_factory)
 
-session_factory = sessionmaker(
-    async_engine,
-    class_=AsyncSession,
-    expire_on_commit=False,
-)
-Session=scoped_session(session_factory)
+#async_engine: AsyncEngine = create_async_engine(
+    #url=PG_CONN_URI,
+    #echo=True,
+#)
+#Base = declarative_base(bind=async_engine, cls=Base)
+
+#session_factory = sessionmaker(
+    #bind=async_engine,
+    #class_=AsyncSession,
+    #expire_on_commit=False,
+#)
+#Session=scoped_session(session_factory)
+
 class User(Base):
-    name = Column(String(64), unique=False, nullable=False, default="")
-    username = Column(String(64), unique=True, nullable=False, default="")
+    name = Column(String(20), unique=False, nullable=False, default="")
+    username = Column(String(20), unique=True, nullable=False, default="")
     email = Column(String(64), unique=True, nullable=False, default="")
-    user_id = Column(Integer, ForeignKey("users_id"), nullable=False, unique=True)
 
-    posts = relationship("Post", back_populates="user", uselist=True)
+    post = relationship("Post", back_populates="user", uselist=False)
     def __str__(self):
-        return f"{self.__class__.__name__}(" f"id={self.id}, " f"name={self.name}"
+        return f"{self.__class__.__name__}(" f"id={self.id}, " f"name={self.username!r}"
+
 class Post(Base):
     title = Column(String(64), unique=False, nullable=False)
     body = Column(Text, nullable=False, default="")
