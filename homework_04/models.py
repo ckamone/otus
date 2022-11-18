@@ -45,7 +45,7 @@ class User(Base):
     __tablename__="users"
     id = Column(Integer, primary_key=True)
     username = Column(String(20), unique=True, nullable=False, default="")
-    name = Column(String(20), unique=False, nullable=False, default="")
+    name = Column(String(40), unique=False, nullable=False, default="")
     email = Column(String(64), unique=True, nullable=False, default="")
 
     post = relationship("Post", back_populates="user")

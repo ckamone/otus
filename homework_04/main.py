@@ -39,10 +39,11 @@ async def create_user(session: AsyncSession, username: str, name: str, email: st
 
     return user
 
-async def create_users(users_info_list):
+async def create_users(conn, users_info_list):
     tasks=set()
     for user_info in users_info_list:
         tasks.add(asyncio.create_task(create_user(
+            session=conn,
             username=user_info['username'],
             name=user_info['name'],
             email=user_info['email'],
@@ -52,9 +53,11 @@ async def create_users(users_info_list):
 async def async_main():
     await create_tables()
     users_data, posts_data = await asyncio.gather(fetch_users_data(), fetch_posts_data())
+
     # create custom user
-    #async with Session() as conn:
+    async with Session() as conn:
         #await create_user(conn, username="username3", name="name3", email="email3")
+        await create_users(conn, users_data)
 
         #for user_data in users_data:await create_user(Session, "username", "name", "email")
 
