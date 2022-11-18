@@ -13,14 +13,13 @@
 - закрытие соединения с БД
 """
 import asyncio
-from models import Base, User, Post, Session, async_engine
-from jsonplaceholder_requests import fetch_users_data, fetch_posts_data
+
 from sqlalchemy.ext.asyncio import (
-    create_async_engine,
-    AsyncEngine,
     AsyncSession,
 )
 
+from jsonplaceholder_requests import fetch_users_data, fetch_posts_data
+from models import Base, User, Post, Session, async_engine
 
 
 async def create_tables():
@@ -29,8 +28,17 @@ async def create_tables():
         await conn.run_sync(Base.metadata.create_all)
 
 
-async def create_user(session: AsyncSession, username: str, name: str, email: str) -> User:
-    user = User(username=username, name=name, email=email)
+async def create_user(
+        session: AsyncSession,
+        username: str,
+        name: str,
+        email: str
+) -> User:
+    user = User(
+        username=username,
+        name=name,
+        email=email,
+    )
     session.add(user)
     print("user create", user)
 
@@ -39,8 +47,9 @@ async def create_user(session: AsyncSession, username: str, name: str, email: st
 
     return user
 
+
 async def create_users(conn, users_info_list):
-    tasks=set()
+    tasks = set()
     for user_info in users_info_list:
         tasks.add(asyncio.create_task(create_user(
             session=conn,
@@ -50,8 +59,18 @@ async def create_users(conn, users_info_list):
         )))
         await asyncio.wait(tasks)
 
-async def create_post(session: AsyncSession, user_id: int, title: str, body: str) -> User:
-    post = Post(user_id=user_id, title=title, body=body)
+
+async def create_post(
+        session: AsyncSession,
+        user_id: int,
+        title: str,
+        body: str
+) -> User:
+    post = Post(
+        user_id=user_id,
+        title=title,
+        body=body,
+    )
     session.add(post)
     print("post create", post)
 
@@ -60,8 +79,9 @@ async def create_post(session: AsyncSession, user_id: int, title: str, body: str
 
     return post
 
+
 async def create_posts(conn, posts_info_list):
-    tasks=set()
+    tasks = set()
     for post_info in posts_info_list:
         tasks.add(asyncio.create_task(create_post(
             session=conn,
@@ -71,21 +91,18 @@ async def create_posts(conn, posts_info_list):
         )))
         await asyncio.wait(tasks)
 
+
 async def async_main():
     await create_tables()
     users_data, posts_data = await asyncio.gather(fetch_users_data(), fetch_posts_data())
-    print(posts_data,'\n',80*'*')
-    # create custom user
+
     async with Session() as conn:
-        #await create_user(conn, username="username3", name="name3", email="email3")
-        #await create_post(conn, user_id=1, title="Title1", body="fdsfsdffdfsgthgdf gfhgfdh ghgh ddf")
         await create_users(conn, users_data)
         await create_posts(conn, posts_data)
 
 
-
 def main():
-    coro_1=async_main()
+    coro_1 = async_main()
     asyncio.run(coro_1)
 
 
