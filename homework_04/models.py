@@ -48,7 +48,7 @@ class User(Base):
     name = Column(String(40), unique=False, nullable=False, default="")
     email = Column(String(64), unique=True, nullable=False, default="")
 
-    post = relationship("Post", back_populates="user")
+    posts = relationship("Post", back_populates="user")
     def __str__(self):
         return f"{self.__class__.__name__}(" f"id={self.id}, " f"name={self.username!r}"
 
@@ -59,7 +59,7 @@ class Post(Base):
     body = Column(Text, nullable=False, default="")
     user_id = Column(Integer, ForeignKey("users.id"), nullable=False,)
 
-    user = relationship("User",back_populates="post")
+    user = relationship("User",back_populates="posts")
     def __str__(self):
         return f"{self.__class__.__name__}(" f"id={self.id}, " f"name={self.title}"
 
