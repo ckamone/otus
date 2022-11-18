@@ -55,7 +55,7 @@ class User(Base):
 class Post(Base):
     __tablename__ = "posts"
     id = Column(Integer, primary_key=True)
-    title = Column(String(64), unique=False, nullable=False)
+    title = Column(String(100), unique=False, nullable=False)
     body = Column(Text, nullable=False, default="")
     user_id = Column(Integer, ForeignKey("users.id"), nullable=False,)
 
