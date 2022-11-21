@@ -42,8 +42,8 @@ async def create_user(
     session.add(user)
     print("user create", user)
 
-    await session.commit()
-    print("user saved", user)
+    #await session.commit()
+    #print("user saved", user)
 
     return user
 
@@ -60,6 +60,7 @@ async def create_users(conn, users_info_list):
         await asyncio.wait(tasks)
 
 
+
 async def create_post(
         session: AsyncSession,
         user_id: int,
@@ -74,8 +75,8 @@ async def create_post(
     session.add(post)
     print("post create", post)
 
-    await session.commit()
-    print("post saved", post)
+    #await session.commit()
+    #print("post saved", post)
 
     return post
 
@@ -99,6 +100,7 @@ async def async_main():
     async with Session() as conn:
         await create_users(conn, users_data)
         await create_posts(conn, posts_data)
+        await conn.commit()
 
 
 def main():

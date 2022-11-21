@@ -56,7 +56,7 @@ class Post(Base):
 # async
 async_engine: AsyncEngine = create_async_engine(
     url=PG_CONN_URI,
-    echo=True,
+    echo=False,
 )
 
 Session = sessionmaker(
