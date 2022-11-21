@@ -57,7 +57,9 @@ async def create_users(conn, users_info_list):
             name=user_info['name'],
             email=user_info['email'],
         )))
-        await asyncio.wait(tasks)
+
+    await asyncio.wait(tasks)
+    await conn.commit()
 
 
 
@@ -90,7 +92,8 @@ async def create_posts(conn, posts_info_list):
             title=post_info['title'],
             body=post_info['body'],
         )))
-        await asyncio.wait(tasks)
+    await asyncio.wait(tasks)
+    await conn.commit()
 
 
 async def async_main():
@@ -100,7 +103,7 @@ async def async_main():
     async with Session() as conn:
         await create_users(conn, users_data)
         await create_posts(conn, posts_data)
-        await conn.commit()
+
 
 
 def main():
