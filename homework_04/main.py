@@ -85,14 +85,14 @@ async def create_post(
 
 
 async def create_posts(conn: AsyncSession, posts_info_list: list):
-    posts = set()
+    posts = []
     for post_info in posts_info_list:
         post = Post(
             user_id=post_info['userId'],
             title=post_info['title'],
             body=post_info['body'],
         )
-        posts.add(post)
+        posts.append(post)
 
     conn.add_all(posts)
     await conn.commit()
