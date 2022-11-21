@@ -42,24 +42,25 @@ async def create_user(
     session.add(user)
     print("user create", user)
 
-    #await session.commit()
-    #print("user saved", user)
+    await session.commit()
+    print("user saved", user)
 
     return user
 
 
-async def create_users(conn, users_info_list):
-    tasks = set()
+async def create_users(conn: AsyncSession, users_info_list):
+    users = []
     for user_info in users_info_list:
-        tasks.add(asyncio.create_task(create_user(
-            session=conn,
+        user = User(
             username=user_info['username'],
             name=user_info['name'],
             email=user_info['email'],
-        )))
+        )
+        users.append(user)
 
-    await asyncio.wait(tasks)
+    conn.add_all(users)
     await conn.commit()
+    return users
 
 
 
@@ -77,23 +78,25 @@ async def create_post(
     session.add(post)
     print("post create", post)
 
-    #await session.commit()
-    #print("post saved", post)
+    await session.commit()
+    print("post saved", post)
 
     return post
 
 
-async def create_posts(conn, posts_info_list):
-    tasks = set()
+async def create_posts(conn: AsyncSession, posts_info_list: list):
+    posts = set()
     for post_info in posts_info_list:
-        tasks.add(asyncio.create_task(create_post(
-            session=conn,
+        post = Post(
             user_id=post_info['userId'],
             title=post_info['title'],
             body=post_info['body'],
-        )))
-    await asyncio.wait(tasks)
+        )
+        posts.add(post)
+
+    conn.add_all(posts)
     await conn.commit()
+    return posts
 
 
 async def async_main():
@@ -101,6 +104,7 @@ async def async_main():
     users_data, posts_data = await asyncio.gather(fetch_users_data(), fetch_posts_data())
 
     async with Session() as conn:
+            #async with conn.begin():
         await create_users(conn, users_data)
         await create_posts(conn, posts_data)
 

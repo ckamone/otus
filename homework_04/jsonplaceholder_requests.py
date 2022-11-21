@@ -17,6 +17,5 @@ async def fetch_posts_data():
     async with aiohttp.ClientSession() as session:
         response = await session.get(POSTS_DATA_URL)
         data = await response.json()
-        print(data)
         return data
 
