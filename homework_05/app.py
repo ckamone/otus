@@ -19,6 +19,11 @@ from views.products import products_app
 app = Flask(__name__)
 app.register_blueprint(products_app, url_prefix="/products")
 
+app.config.update(
+    ENV="development",
+    SECRET_KEY="qwerty123",
+)
+
 @app.get("/")
 def get_root():
     print(request.args)
@@ -34,10 +39,6 @@ def about():
     return "<h1>text...</h1>"
 
 
-app.config.update(
-    ENV="development",
-    SECRET_KEY="qwerty123",
-)
 
 if __name__ == "__main__":
     app.run(debug=True)
