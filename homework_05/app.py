@@ -24,7 +24,7 @@ app.config.update(
     SECRET_KEY="qwerty123",
 )
 
-@app.get("/")
+@app.get("/",endpoint="homepage")
 def get_root():
     print(request.args)
     return render_template("index.html")
@@ -34,9 +34,19 @@ def hello_world():
     return "<h1>Hello world!</h1>"
 
 
-@app.route("/about/")
+@app.route("/about/",endpoint="about")
 def about():
-    return "<h1>text...</h1>"
+    text="В 1908 году французский авиатор Огюст Фаньер, " \
+         "совершая показательный полет над Парижем, " \
+         "врезался в Эйфелеву башню и погиб. " \
+         "После чего известный меньшевик Мартов написал в газете «Искра», " \
+         "что «царский режим летит к своей гибели так же быстро, " \
+         "как г-н Фаньер над Парижем». " \
+         "Отсюда пошло выражение «пролететь как фанера над Парижем»."
+    return render_template(
+        "about.html",
+        text=text
+    )
 
 
 
