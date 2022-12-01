@@ -84,7 +84,7 @@ async def create_post(
     return post
 
 
-async def create_posts(conn: AsyncSession, posts_info_list: list):
+async def create_posts(session: AsyncSession, posts_info_list: list):
     posts = []
     for post_info in posts_info_list:
         post = Post(
@@ -94,8 +94,8 @@ async def create_posts(conn: AsyncSession, posts_info_list: list):
         )
         posts.append(post)
 
-    conn.add_all(posts)
-    await conn.commit()
+    session.add_all(posts)
+    await session.commit()
     return posts
 
 
