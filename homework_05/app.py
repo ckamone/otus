@@ -34,5 +34,10 @@ def about():
     return "<h1>text...</h1>"
 
 
+app.config.update(
+    ENV="development",
+    SECRET_KEY="qwerty123",
+)
+
 if __name__ == "__main__":
     app.run(debug=True)
