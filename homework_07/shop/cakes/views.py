@@ -1,7 +1,11 @@
 from django.shortcuts import render
-
+from cakes.models import Cake
 # Create your views here.
 # views = controllers
 
 def main_page(request):
-    return render(request, 'cakes/index.html')
+    cakes = Cake.objects.all()
+    context = {
+        'cakes': cakes
+    }
+    return render(request, 'cakes/index.html', context=context)
