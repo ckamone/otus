@@ -1,7 +1,8 @@
 {% extends 'root.html' %}
 
 {% block content %}
-    <h1>Hello, {{ user.username|default:"Stranger" }}!</h1>
+    <h1>Hello, {{ user.username|default:"Guest" }}!</h1>
+    <h2>Try our cakes:</h2>
     <ul>
         {% for el in cakes %}
             <li>{{ el.name }} ({{ el.price }}$)</li>
