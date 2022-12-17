@@ -4,4 +4,4 @@ from django.shortcuts import render
 # views = controllers
 
 def main_page(request):
-    return render(request, 'index.html')
+    return render(request, 'cakes/index.html')
