@@ -14,12 +14,12 @@ from pathlib import Path
 from dotenv import load_dotenv, dotenv_values
 import os
 
-load_dotenv(os.path.join(os.path.dirname(__file__), '..', os.pardir, '..', os.pardir, '.env'))
-env = dotenv_values()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+load_dotenv(os.path.join(BASE_DIR, os.pardir, '..', os.pardir, '.env'))
+env = dotenv_values()
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'cakes',
 ]
 
 MIDDLEWARE = [
