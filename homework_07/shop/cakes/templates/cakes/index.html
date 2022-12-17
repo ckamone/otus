@@ -1,10 +1,10 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>The CAKE Shop</title>
-</head>
-<body>
-<h1>Hello!</h1>
-</body>
-</html>
+{% extends 'root.html' %}
+
+{% block content %}
+    <h1>Hello, {{ user.username|default:"Stranger" }}!</h1>
+    <ul>
+        {% for el in cakes %}
+            <li>{{ el.name }} ({{ el.price }}$)</li>
+        {% endfor %}
+    </ul>
+{% endblock %}
