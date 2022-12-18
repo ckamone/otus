@@ -16,10 +16,9 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 
-from cakes.views import main_page
+from cakes.views import categories_page, products_page
 
 urlpatterns = [
-    path('', main_page, name='main_page'),
-    path('admin/', admin.site.urls),
-    path('shop/', include('cakes.urls')),
+    path('categories/', categories_page, name='categories_page'),
+    path('products/', products_page, name='products_page'),
 ]
