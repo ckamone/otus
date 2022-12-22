@@ -5,6 +5,7 @@ from cakes.models import Cake, CakeType, Ingredient
 from django.views.generic import (
     ListView, DetailView,
     CreateView, UpdateView,
+    DeleteView,
 )
 # Create your views here.
 # views = controllers
@@ -43,6 +44,11 @@ class CakeTypeUpdateView(UpdateView):
     success_url = reverse_lazy('categories_page')
 
 
+class CakeTypeDeleteView(DeleteView):
+    model = CakeType
+    success_url = reverse_lazy('categories_page')
+
+
 class IngredientListView(ListView):
     model = Ingredient
 
@@ -56,6 +62,11 @@ class IngredientCreateView(CreateView):
 class IngredientUpdateView(UpdateView):
     model = Ingredient
     fields = '__all__'
+    success_url = reverse_lazy('ingredients_page')
+
+
+class IngredientDeleteView(DeleteView):
+    model = Ingredient
     success_url = reverse_lazy('ingredients_page')
 
 
@@ -75,4 +86,9 @@ class CakeCreateView(CreateView):
 class CakeUpdateView(UpdateView):
     model = Cake
     fields = '__all__'
+    success_url = reverse_lazy('cakes_page')
+
+
+class CakeDeleteView(DeleteView):
+    model = Cake
     success_url = reverse_lazy('cakes_page')

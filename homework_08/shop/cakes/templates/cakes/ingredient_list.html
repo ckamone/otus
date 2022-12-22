@@ -11,6 +11,9 @@
                 <span>
                     <a href="{% url 'ingredients_update' pk=el.pk %}">Edit</a>
                 </span>
+                <span>
+                    <a href="{% url 'ingredients_delete' pk=el.pk %}">Delete</a>
+                </span>
             </li>
         {% endfor %}
     </ul>

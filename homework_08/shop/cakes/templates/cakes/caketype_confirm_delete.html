@@ -1,0 +1,14 @@
+{% extends 'root.html' %}
+{% block title %}
+    Products
+{% endblock %}
+{% block content %}
+    Do you want to delete
+    <p>{{ object.type }}?</p>
+    <form method="post">
+        {% csrf_token %}
+
+        <button type="submit">Delete</button>
+    </form>
+
+{% endblock %}
