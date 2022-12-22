@@ -8,12 +8,12 @@
         {% for el in object_list %}
             <li>{{ el.type }}</li>
             <span>
-                <a href="{% url 'categories_update' pk=el.pk %}">Edit</a>
+                <a href="{% url 'categories_update' pk=el.pk %}"><button type="submit">Edit</button></a>
             </span>
             <span>
-                <a href="{% url 'categories_delete' pk=el.pk %}">Delete</a>
+                <a href="{% url 'categories_delete' pk=el.pk %}"><button type="submit">Delete</button></a>
             </span>
         {% endfor %}
     </ul>
-    <a href="{% url 'categories_create' %}">Create</a>
+    <a href="{% url 'categories_create' %}"><button type="submit">Create</button></a>
 {% endblock %}

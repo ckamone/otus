@@ -9,13 +9,13 @@
             <li>
                 <a href="{% url 'cake_detail' pk=el.pk %}">{{ el.name }} ({{ el.price }}$)</a>
                 <span>
-                    <a href="{% url 'cakes_update' pk=el.pk %}">Edit</a>
+                    <a href="{% url 'cakes_update' pk=el.pk %}"><button type="submit">Edit</button></a>
                 </span>
                 <span>
-                    <a href="{% url 'cakes_delete' pk=el.pk %}">Delete</a>
+                    <a href="{% url 'cakes_delete' pk=el.pk %}"><button type="submit">Delete</button></a>
                 </span>
             </li>
         {% endfor %}
     </ul>
-    <a href="{% url 'cakes_create' %}">Create</a>
+    <a href="{% url 'cakes_create' %}"><button type="submit">Create</button></a>
 {% endblock %}
