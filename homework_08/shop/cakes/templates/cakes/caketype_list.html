@@ -7,6 +7,9 @@
     <ul>
         {% for el in object_list %}
             <li>{{ el.type }}</li>
+            <span>
+                <a href="{% url 'categories_update' pk=el.pk %}">Edit</a>
+            </span>
         {% endfor %}
     </ul>
     <a href="{% url 'categories_create' %}">Create</a>

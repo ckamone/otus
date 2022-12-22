@@ -8,6 +8,9 @@
         {% for el in object_list %}
             <li>
                 {{ el.name }}
+                <span>
+                    <a href="{% url 'ingredients_update' pk=el.pk %}">Edit</a>
+                </span>
             </li>
         {% endfor %}
     </ul>

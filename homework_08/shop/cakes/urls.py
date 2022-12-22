@@ -19,12 +19,14 @@ from cakes import views
 urlpatterns = [
     path('ingredients/', views.IngredientListView.as_view(), name='ingredients_page'),
     path('ingredients/create/', views.IngredientCreateView.as_view(), name='ingredients_create'),
+    path('ingredients/update/<int:pk>', views.IngredientUpdateView.as_view(), name='ingredients_update'),
 
     path('categories/', views.CakeTypeListView.as_view(), name='categories_page'),
     path('categories/create/', views.CakeTypeCreateView.as_view(), name='categories_create'),
+    path('categories/update/<int:pk>', views.CakeTypeUpdateView.as_view(), name='categories_update'),
 
     path('cakes/<int:pk>', views.CakeDetailView.as_view(), name='cake_detail'),
     path('cakes/', views.CakeListView.as_view(), name='cakes_page'),
     path('cakes/create/', views.CakeCreateView.as_view(), name='cakes_create'),
-
+    path('cakes/update/<int:pk>', views.CakeUpdateView.as_view(), name='cakes_update'),
 ]

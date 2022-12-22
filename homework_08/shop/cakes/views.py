@@ -3,7 +3,8 @@ from django.urls import reverse_lazy
 
 from cakes.models import Cake, CakeType, Ingredient
 from django.views.generic import (
-    ListView, DetailView, CreateView
+    ListView, DetailView,
+    CreateView, UpdateView,
 )
 # Create your views here.
 # views = controllers
@@ -36,11 +37,23 @@ class CakeTypeCreateView(CreateView):
     success_url = reverse_lazy('categories_page')
 
 
+class CakeTypeUpdateView(UpdateView):
+    model = CakeType
+    fields = '__all__'
+    success_url = reverse_lazy('categories_page')
+
+
 class IngredientListView(ListView):
     model = Ingredient
 
 
 class IngredientCreateView(CreateView):
+    model = Ingredient
+    fields = '__all__'
+    success_url = reverse_lazy('ingredients_page')
+
+
+class IngredientUpdateView(UpdateView):
     model = Ingredient
     fields = '__all__'
     success_url = reverse_lazy('ingredients_page')
@@ -55,6 +68,11 @@ class CakeDetailView(DetailView):
 
 
 class CakeCreateView(CreateView):
+    model = Cake
+    fields = '__all__'
+    success_url = reverse_lazy('cakes_page')
+
+class CakeUpdateView(UpdateView):
     model = Cake
     fields = '__all__'
     success_url = reverse_lazy('cakes_page')
