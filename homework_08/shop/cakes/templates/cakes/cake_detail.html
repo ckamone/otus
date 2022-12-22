@@ -1,0 +1,14 @@
+{% extends 'root.html' %}
+{% block title %}
+    Products
+{% endblock %}
+{% block content %}
+    <h2>{{ object.name }}</h2>
+    <ul>
+        <li>{{ object.type }}</li>
+        <li>{{ object.price }}$</li>
+        <li>{{ object.description }}</li>
+
+    </ul>
+    <a href="{% url 'cakes_page' %}"><button type="submit">Back</button></a>
+{% endblock %}

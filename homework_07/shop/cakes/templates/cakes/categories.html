@@ -1,0 +1,12 @@
+{% extends 'root.html' %}
+{% block title %}
+    Products
+{% endblock %}
+{% block content %}
+    <h2>We have such cake types:</h2>
+    <ul>
+        {% for el in types %}
+            <li>{{ el.type }}</li>
+        {% endfor %}
+    </ul>
+{% endblock %}

@@ -1,0 +1,7 @@
+{% extends 'root.html' %}
+{% block title %}
+    Home page
+{% endblock %}
+{% block content %}
+    <h1>Hello, {{ user.username|default:"Guest" }}!</h1>
+{% endblock %}
